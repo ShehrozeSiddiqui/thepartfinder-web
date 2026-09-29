@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #12181f;
+
+  /* Brand tokens — from client design mockups. Reference by name, never raw hex in components. */
+  --color-brand-navy: #0d1420;
+  --color-brand-navy-light: #151f2e;
+  --color-brand-green: #2fae4e;
+  --color-brand-green-dark: #24913f;
+  --color-brand-forest: #123328;
+  --color-brand-orange: #f28b20;
+  --color-brand-ink: #12181f;
+  --color-brand-muted: #6b7684;
+  --color-brand-border: #e2e6ea;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-navy: var(--color-brand-navy);
+  --color-brand-navy-light: var(--color-brand-navy-light);
+  --color-brand-green: var(--color-brand-green);
+  --color-brand-green-dark: var(--color-brand-green-dark);
+  --color-brand-forest: var(--color-brand-forest);
+  --color-brand-orange: var(--color-brand-orange);
+  --color-brand-ink: var(--color-brand-ink);
+  --color-brand-muted: var(--color-brand-muted);
+  --color-brand-border: var(--color-brand-border);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}

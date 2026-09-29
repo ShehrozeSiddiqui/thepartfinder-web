@@ -6,20 +6,18 @@ import { FeaturedParts } from "@/features/landing/components/FeaturedParts";
 import { StatsBar } from "@/features/landing/components/StatsBar";
 import { WhyChooseUs } from "@/features/landing/components/WhyChooseUs";
 import { CtaBanner } from "@/features/landing/components/CtaBanner";
-import { Newsletter } from "@/features/landing/components/Newsletter";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <TrustedBrands />
-      <ShopByCategory />
       <Benefits />
-      <FeaturedParts />
+      <ShopByCategory />
       <StatsBar />
+      <TrustedBrands />
+      <FeaturedParts />
       <WhyChooseUs />
       <CtaBanner />
-      <Newsletter />
     </>
   );
 }

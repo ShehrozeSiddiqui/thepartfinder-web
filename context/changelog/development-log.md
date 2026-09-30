@@ -6,6 +6,22 @@
 - Scaffolded Next.js 16 app (TypeScript, Tailwind v4, App Router, `src/` dir, `@/*` alias).
 - Established `context/` documentation system and root `CLAUDE.md` engineering rules.
 
+### Added (Find My Part)
+- `/find-my-part` page with a Make → Model → Year → Configuration wizard (mock data) — see
+  `context/features/find-my-part.md`. `routes.findMyPart` now points at it instead of the hero anchor.
+
+### Added (Parts catalog, search, requests)
+- `/parts`, `/parts/[slug]`, `/search/part-number`, `/search/description`, `/part-request`,
+  `/quotes`, `/quotes/[id]` with mock data — see `context/features/parts.md`. Added shared `Badge`.
+  Header search, mega menu and category tiles now link into the catalog.
+
+### Added (Cart, account, dealer, integrations, contact, footer)
+- Working cart + checkout flow (`/checkout`), customer account (`/account/*` incl. garage and
+  orders), dealer portal (`/dealer/*`), eBay/Amazon integration dashboards, functional contact form,
+  redesigned footer with newsletter. All mock/demo — see ADR-004 and `features/cart-checkout.md`,
+  `features/account-and-dealer.md`. Header now shows a live cart count and links to My Account.
+  Added `SidebarNav`, `NewsletterForm`; removed the landing `Newsletter` section (now in the footer).
+
 ### Architecture
 - Adopted feature-first structure (`core/` + `features/`), adapted from client's Flutter-oriented
   master prompt — see ADR-001.

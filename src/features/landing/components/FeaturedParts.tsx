@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Container } from "@/core/components/Container";
 import { formatPrice } from "@/core/lib/format";
@@ -37,8 +38,15 @@ export function FeaturedParts() {
               key={part.name}
               className="flex flex-col gap-3 rounded-lg border border-brand-border bg-white p-4"
             >
-              <div className="flex h-28 items-center justify-center rounded-md bg-black/5 text-xs text-brand-muted">
-                Part Image
+              <div className="relative h-28 overflow-hidden rounded-md bg-black/5">
+                <Image
+                  src={part.image}
+                  alt={part.name}
+                  fill
+                  unoptimized
+                  sizes="(min-width: 1280px) 16vw, 33vw"
+                  className="object-cover"
+                />
               </div>
               <div>
                 <p className="text-sm font-semibold text-brand-ink">{part.name}</p>

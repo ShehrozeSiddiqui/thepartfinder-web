@@ -3,7 +3,7 @@ import type { LucideIcon } from "lucide-react";
 export type Category = {
   name: string;
   partCount: string;
-  icon: LucideIcon;
+  image: string;
 };
 
 export type Benefit = {
@@ -23,6 +23,7 @@ export type FeaturedPart = {
   partNumber: string;
   price: number;
   inStock: boolean;
+  image: string;
 };
 
 export type Value = {

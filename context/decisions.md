@@ -41,3 +41,17 @@ client's engineering prompt).
 **Consequence:** Phase 2 will introduce Supabase client setup (`core/lib/supabase.ts`) and a
 data-fetching approach (likely TanStack Query) when the vehicle/parts finder needs real data —
 revisit this ADR then.
+
+## ADR-004 — Demo-grade cart, orders and garage in localStorage
+
+**Decision:** Cart (`features/cart`), placed orders and the saved-vehicle garage persist in the
+browser's `localStorage` behind small modules (`CartProvider`, `lib/orders.ts`, `GarageManager`).
+Checkout takes no payment and sends nothing to a server. The cart uses a plain React context — still
+no global state library, consistent with ADR-003.
+
+**Reason:** The client wants every mockup screen working end-to-end with mock data before the
+Supabase backend, auth and payments exist.
+
+**Consequence:** Data is per-browser and unauthenticated. When Supabase/auth land, swap these three
+modules for server-backed versions; the UI components should not need to change. Real payments need
+a provider and must not reuse the demo payment step.

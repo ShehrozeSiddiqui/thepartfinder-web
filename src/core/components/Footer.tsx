@@ -1,15 +1,16 @@
 import Link from "next/link";
-import { Compass, Mail, MapPin, Phone } from "lucide-react";
+import { Compass } from "lucide-react";
 import { Container } from "./Container";
 import { site } from "@/core/constants/site";
 import { footerNav } from "@/core/constants/nav";
 import { routes } from "@/core/constants/routes";
+import { NewsletterForm } from "./NewsletterForm";
 
 export function Footer() {
   return (
     <footer className="mt-auto bg-brand-navy text-white/70">
-      <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
-        <div className="sm:col-span-2 lg:col-span-2 flex flex-col gap-4">
+      <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)_1.4fr]">
+        <div className="sm:col-span-2 lg:col-span-1 flex flex-col gap-4">
           <Link href={routes.home} className="flex items-center gap-2 font-extrabold text-white">
             <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-brand-green text-brand-green">
               <Compass size={18} strokeWidth={2.5} />
@@ -46,18 +47,9 @@ export function Footer() {
         ))}
 
         <div className="flex flex-col gap-3 sm:col-span-2 lg:col-span-1">
-          <h3 className="text-sm font-semibold text-white">Get in Touch</h3>
-          <ul className="flex flex-col gap-2 text-sm">
-            <li className="flex items-center gap-2">
-              <Phone size={16} /> {site.contact.phone}
-            </li>
-            <li className="flex items-center gap-2">
-              <Mail size={16} /> {site.contact.email}
-            </li>
-            <li className="flex items-center gap-2">
-              <MapPin size={16} /> {site.contact.address}
-            </li>
-          </ul>
+          <h3 className="text-sm font-semibold text-white">Newsletter</h3>
+          <p className="text-sm">Get updates on new parts and special offers.</p>
+          <NewsletterForm />
         </div>
       </Container>
 

@@ -3,10 +3,12 @@ import type { Availability, Compatibility, Condition, Part } from "../types";
 /**
  * Mock catalog for the Phase 1 UI. Real inventory arrives with the Supabase-backed catalog in
  * Phase 2 — see context/features/parts.md. Part numbers/specs are illustrative, not verified
- * fitment data. Images are loremflickr keyword placeholders pinned with `lock`.
+ * fitment data. Images are pinned Pexels photo IDs (verified to resolve) rather than a
+ * keyword-search placeholder service — loremflickr, used previously, returns 401s and random
+ * unrelated matches; see context/decisions.md ADR-005.
  */
-const image = (keywords: string, lock: number) =>
-  `https://loremflickr.com/800/600/${keywords}?lock=${lock}`;
+const image = (pexelsId: number) =>
+  `https://images.pexels.com/photos/${pexelsId}/pexels-photo-${pexelsId}.jpeg?auto=compress&cs=tinysrgb&w=800`;
 
 const fit = (make: string, model: string, years: string, engine: string, notes = "All Models"): Compatibility => ({
   make,
@@ -28,7 +30,7 @@ type Seed = {
   condition: Condition;
   price: number | null;
   availability: Availability;
-  imageKeywords: string;
+  imagePexelsId: number;
   description: string;
   origin?: string;
   compatibility: Compatibility[];
@@ -46,7 +48,7 @@ const seeds: Seed[] = [
     condition: "Genuine OEM",
     price: 18450,
     availability: "in-stock",
-    imageKeywords: "turbocharger,car",
+    imagePexelsId: 8237050,
     description:
       "Genuine Toyota turbocharger assembly for 2.8L 1GD-FTV diesel engine. Direct-fit replacement, 100% OEM quality.",
     origin: "Japan",
@@ -70,7 +72,7 @@ const seeds: Seed[] = [
     condition: "OEM",
     price: 950,
     availability: "in-stock",
-    imageKeywords: "timing,belt,car",
+    imagePexelsId: 17356337,
     description: "Complete timing belt kit with tensioner and idler pulleys. OEM-equivalent specification.",
     compatibility: [
       fit("Toyota", "Corolla", "2008 – 2013", "1.8L 2ZR-FE Petrol"),
@@ -88,7 +90,7 @@ const seeds: Seed[] = [
     condition: "Genuine OEM",
     price: 185,
     availability: "in-stock",
-    imageKeywords: "oil,filter,car",
+    imagePexelsId: 30674526,
     description: "Genuine Toyota spin-on oil filter. Fits a wide range of petrol and diesel applications.",
     origin: "Japan",
     compatibility: [
@@ -111,7 +113,7 @@ const seeds: Seed[] = [
     condition: "OEM",
     price: 725,
     availability: "in-stock",
-    imageKeywords: "water,pump,car",
+    imagePexelsId: 18193178,
     description: "OEM-supplier water pump assembly with gasket. Direct replacement for the original unit.",
     origin: "Japan",
     compatibility: [
@@ -130,7 +132,7 @@ const seeds: Seed[] = [
     condition: "Genuine OEM",
     price: 585,
     availability: "in-stock",
-    imageKeywords: "brake,pads,car",
+    imagePexelsId: 4022543,
     description: "Genuine front brake pad set with wear indicators. Low-dust, low-noise compound.",
     origin: "Japan",
     compatibility: [
@@ -149,7 +151,7 @@ const seeds: Seed[] = [
     condition: "Aftermarket",
     price: 890,
     availability: "ships-in-7-days",
-    imageKeywords: "brake,disc,car",
+    imagePexelsId: 6870299,
     description: "Vented front brake disc, coated for corrosion protection. Sold individually.",
     compatibility: [fit("Toyota", "Hilux", "2005 – 2015", "All Models")],
     crossReferences: [{ manufacturer: "Brembo", partNumber: "09.A426.11" }],
@@ -164,7 +166,7 @@ const seeds: Seed[] = [
     condition: "OEM",
     price: 1950,
     availability: "ships-in-7-days",
-    imageKeywords: "car,alternator",
+    imagePexelsId: 4374843,
     description: "Denso 100A alternator, remanufactured to OEM specification with 12-month warranty.",
     compatibility: [
       fit("Toyota", "Corolla", "2008 – 2013", "1.8L 2ZR-FE Petrol"),
@@ -182,7 +184,7 @@ const seeds: Seed[] = [
     condition: "OEM",
     price: 1620,
     availability: "in-stock",
-    imageKeywords: "car,starter,motor",
+    imagePexelsId: 12555016,
     description: "Gear-reduction starter motor, direct fit. Tested before dispatch.",
     compatibility: [fit("Toyota", "Hilux", "2005 – 2015", "2.5L / 3.0L Diesel")],
   },
@@ -196,7 +198,7 @@ const seeds: Seed[] = [
     condition: "Genuine OEM",
     price: 285,
     availability: "in-stock",
-    imageKeywords: "car,air,filter",
+    imagePexelsId: 20094998,
     description: "Genuine panel-type air filter element. Maintains correct airflow and engine protection.",
     origin: "Japan",
     compatibility: [
@@ -214,7 +216,7 @@ const seeds: Seed[] = [
     condition: "Genuine OEM",
     price: null,
     availability: "request",
-    imageKeywords: "steering,rack,car",
+    imagePexelsId: 5180905,
     description: "Genuine power steering rack. Supplier verification required before order confirmation.",
     origin: "Japan",
     compatibility: [
@@ -236,7 +238,7 @@ const seeds: Seed[] = [
     condition: "Aftermarket",
     price: 780,
     availability: "in-stock",
-    imageKeywords: "shock,absorber,car",
+    imagePexelsId: 7019766,
     description: "Gas-charged front shock absorber. Sold individually.",
     compatibility: [fit("Toyota", "Hilux", "2005 – 2015", "All Models")],
     crossReferences: [{ manufacturer: "KYB", partNumber: "341328" }],
@@ -251,7 +253,7 @@ const seeds: Seed[] = [
     condition: "OEM",
     price: 2450,
     availability: "ships-in-7-days",
-    imageKeywords: "car,radiator",
+    imagePexelsId: 18193178,
     description: "Aluminium-core radiator with plastic tanks, pressure-tested before dispatch.",
     compatibility: [fit("Toyota", "Hilux", "2005 – 2015", "2.5L / 3.0L Diesel")],
   },
@@ -265,7 +267,7 @@ const seeds: Seed[] = [
     condition: "Genuine OEM",
     price: 1780,
     availability: "in-stock",
-    imageKeywords: "car,headlight",
+    imagePexelsId: 19821955,
     description: "Genuine left-hand headlight assembly with bulbs and adjuster motor.",
     origin: "Japan",
     compatibility: [fit("Toyota", "Hilux", "2012 – 2015", "All Models")],
@@ -273,9 +275,9 @@ const seeds: Seed[] = [
 ];
 
 export const parts: Part[] = seeds.map(
-  ({ imageKeywords, origin = "Various", crossReferences = [], ...seed }, index) => ({
+  ({ imagePexelsId, origin = "Various", crossReferences = [], ...seed }) => ({
     ...seed,
-    image: image(imageKeywords, 100 + index),
+    image: image(imagePexelsId),
     origin,
     warranty: seed.condition === "Aftermarket" ? "6 Months" : "12 Months",
     crossReferences,

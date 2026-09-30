@@ -93,7 +93,7 @@ export function GarageManager() {
         <div key={v.id} className="flex items-center gap-4 rounded-md border border-brand-border bg-white p-4">
           <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded bg-black/5">
             <Image
-              src={`https://loremflickr.com/300/200/${encodeURIComponent(v.make)},${encodeURIComponent(v.model)},car?lock=1`}
+              src={`https://picsum.photos/seed/${encodeURIComponent(`${v.make}-${v.model}`)}/300/200`}
               alt={`${v.make} ${v.model}`}
               fill
               unoptimized

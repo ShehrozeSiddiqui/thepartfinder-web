@@ -34,4 +34,6 @@ export type Value = {
 
 export type Brand = {
   name: string;
+  /** SVG path data from `simple-icons`. Omitted brands (no mark available) fall back to a text wordmark. */
+  logoPath?: string;
 };

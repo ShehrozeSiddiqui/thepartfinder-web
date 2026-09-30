@@ -10,13 +10,14 @@ export const metadata: Metadata = {
 };
 
 export default async function DescriptionSearchPage({ searchParams }: PageProps<"/search/description">) {
-  const { q } = await searchParams;
+  const { q, tab } = await searchParams;
   const query = typeof q === "string" ? q.trim() : "";
+  const initialTab = tab === "photo" ? "photo" : "description";
 
   return (
     <Container className="flex max-w-3xl flex-col gap-6 py-10">
       <h1 className="text-3xl font-extrabold uppercase">Search by description or photo</h1>
-      <DescriptionSearch initialQuery={query} />
+      <DescriptionSearch initialQuery={query} initialTab={initialTab} />
       <SearchResults query={query} results={searchByDescription(query)} />
     </Container>
   );

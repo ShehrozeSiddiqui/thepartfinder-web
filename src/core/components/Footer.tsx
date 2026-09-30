@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Compass } from "lucide-react";
 import { Container } from "./Container";
 import { site } from "@/core/constants/site";
 import { footerNav } from "@/core/constants/nav";
@@ -11,11 +11,14 @@ export function Footer() {
     <footer className="mt-auto bg-brand-navy text-white/70">
       <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)_1.4fr]">
         <div className="sm:col-span-2 lg:col-span-1 flex flex-col gap-4">
-          <Link href={routes.home} className="flex items-center gap-2 font-extrabold text-white">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-brand-green text-brand-green">
-              <Compass size={18} strokeWidth={2.5} />
-            </span>
-            {site.name.toUpperCase()}
+          <Link href={routes.home} className="flex items-center">
+            <Image
+              src={site.logoSrc}
+              alt={site.fullName}
+              width={site.logoDimensions.width}
+              height={site.logoDimensions.height}
+              className="h-12 w-auto"
+            />
           </Link>
           <p className="max-w-xs text-sm">{site.logoTagline}</p>
           <p className="text-xs uppercase tracking-wide text-white/40">

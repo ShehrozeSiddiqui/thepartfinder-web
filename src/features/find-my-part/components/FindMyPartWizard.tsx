@@ -50,12 +50,39 @@ function MakeTile({ make, onSelect }: { make: Make; onSelect: () => void }) {
   );
 }
 
-export function FindMyPartWizard() {
-  const [step, setStep] = useState(0);
-  const [make, setMake] = useState("");
-  const [model, setModel] = useState("");
-  const [year, setYear] = useState("");
-  const [config, setConfig] = useState<Config | null>(null);
+type InitialSelection = { make?: string; model?: string; year?: string };
+
+/** Resolves how far a Make/Model/Year pick (e.g. from the homepage Hero) gets into the wizard. */
+function resolveInitialState({ make, model, year }: InitialSelection) {
+  const selectedMake = makes.find((m) => m.name === make);
+  if (!selectedMake) return { step: 0, make: "", model: "", year: "", config: null as Config | null };
+
+  const selectedModel = selectedMake.models.find((m) => m.name === model);
+  if (!selectedModel) return { step: 1, make: selectedMake.name, model: "", year: "", config: null as Config | null };
+
+  const validYear = year && yearsFor(selectedModel).includes(year) ? year : "";
+  if (!validYear) {
+    return { step: 2, make: selectedMake.name, model: selectedModel.name, year: "", config: null as Config | null };
+  }
+
+  return {
+    step: CONFIG_STEP,
+    make: selectedMake.name,
+    model: selectedModel.name,
+    year: validYear,
+    config: defaultConfigFor(selectedModel),
+  };
+}
+
+type FindMyPartWizardProps = { initialMake?: string; initialModel?: string; initialYear?: string };
+
+export function FindMyPartWizard({ initialMake, initialModel, initialYear }: FindMyPartWizardProps = {}) {
+  const initial = resolveInitialState({ make: initialMake, model: initialModel, year: initialYear });
+  const [step, setStep] = useState(initial.step);
+  const [make, setMake] = useState(initial.make);
+  const [model, setModel] = useState(initial.model);
+  const [year, setYear] = useState(initial.year);
+  const [config, setConfig] = useState<Config | null>(initial.config);
   const [makeQuery, setMakeQuery] = useState("");
   const [showAllMakes, setShowAllMakes] = useState(false);
 
@@ -283,7 +310,7 @@ export function FindMyPartWizard() {
 
           <div className="relative min-h-64 overflow-hidden rounded-md border border-brand-border bg-black/5">
             <Image
-              src={`https://loremflickr.com/900/600/${encodeURIComponent(make)},${encodeURIComponent(model)},car?lock=1`}
+              src={`https://picsum.photos/seed/${encodeURIComponent(`${make}-${model}`)}/900/600`}
               alt={`${make} ${model}`}
               fill
               unoptimized

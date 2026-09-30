@@ -7,8 +7,14 @@ import { routes } from "@/core/constants/routes";
 
 const fieldClasses = "w-full rounded-md border border-brand-border bg-white px-4 py-3 text-sm outline-none focus:border-brand-green";
 
-export function DescriptionSearch({ initialQuery }: { initialQuery: string }) {
-  const [tab, setTab] = useState<"description" | "photo">("description");
+export function DescriptionSearch({
+  initialQuery,
+  initialTab = "description",
+}: {
+  initialQuery: string;
+  initialTab?: "description" | "photo";
+}) {
+  const [tab, setTab] = useState<"description" | "photo">(initialTab);
   const [fileName, setFileName] = useState("");
 
   return (

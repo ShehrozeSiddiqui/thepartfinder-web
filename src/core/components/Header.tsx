@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ChevronDown, Compass, Menu, Search, ShoppingCart, User, X } from "lucide-react";
+import { ChevronDown, Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import { Container } from "./Container";
 import { site } from "@/core/constants/site";
 import { primaryNav } from "@/core/constants/nav";
@@ -22,21 +23,15 @@ export function Header() {
       onKeyDown={(e) => e.key === "Escape" && setOpenMenu(null)}
     >
       <Container tight className="flex h-[72px] items-center justify-between gap-5">
-        <Link href={routes.home} className="flex shrink-0 items-center gap-2.5">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-brand-orange text-brand-orange">
-            <Compass size={20} strokeWidth={2} />
-          </span>
-          <span className="leading-tight">
-            <span className="block text-base font-extrabold tracking-tight">
-              {site.name.toUpperCase()}
-            </span>
-            <span className="block text-[9px] font-semibold tracking-[0.15em] text-white/60">
-              AUTO PARTS SALES
-            </span>
-            <span className="block text-[9px] font-medium italic text-brand-green">
-              {site.logoTagline}
-            </span>
-          </span>
+        <Link href={routes.home} className="flex shrink-0 items-center">
+          <Image
+            src={site.logoSrc}
+            alt={site.fullName}
+            width={site.logoDimensions.width}
+            height={site.logoDimensions.height}
+            priority
+            className="h-14 w-auto"
+          />
         </Link>
 
         <nav className="hidden shrink-0 items-center gap-5 text-sm font-bold uppercase lg:flex">

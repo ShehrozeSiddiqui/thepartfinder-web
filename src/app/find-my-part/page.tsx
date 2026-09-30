@@ -6,6 +6,16 @@ export const metadata: Metadata = {
   description: "Select your vehicle make, model, year and configuration to find the exact parts.",
 };
 
-export default function FindMyPartPage() {
-  return <FindMyPartWizard />;
+const asString = (value: string | string[] | undefined) => (typeof value === "string" ? value : undefined);
+
+export default async function FindMyPartPage({ searchParams }: PageProps<"/find-my-part">) {
+  const { make, model, year } = await searchParams;
+
+  return (
+    <FindMyPartWizard
+      initialMake={asString(make)}
+      initialModel={asString(model)}
+      initialYear={asString(year)}
+    />
+  );
 }

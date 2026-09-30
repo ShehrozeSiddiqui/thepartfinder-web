@@ -55,3 +55,25 @@ Supabase backend, auth and payments exist.
 **Consequence:** Data is per-browser and unauthenticated. When Supabase/auth land, swap these three
 modules for server-backed versions; the UI components should not need to change. Real payments need
 a provider and must not reuse the demo payment step.
+
+## ADR-005 — Replaced loremflickr placeholder images with pinned Pexels IDs / Picsum seeds
+
+**Decision:** `loremflickr.com` (keyword-matched random Flickr photos) is no longer used anywhere
+in the app. Fixed-content images (categories, featured parts, the parts catalog) now use specific,
+manually verified `images.pexels.com/photos/<id>/...` URLs. Images keyed to arbitrary user-selected
+text (the Find My Part vehicle preview in `FindMyPartWizard`, garage vehicle thumbnails in
+`GarageManager`) use `picsum.photos/seed/<make-model>/...` — deterministic per seed, but a generic
+photo, not an actual photo of that make/model.
+
+**Reason:** `loremflickr.com` started returning `401 Unauthorized` on every request (verified via
+curl), breaking every category tile, every featured part, and the entire parts catalog — roughly
+30 images site-wide. It's also a known-unreliable service even when up: keyword matching against
+random Flickr photos frequently returns unrelated images. There is no comparably reliable free
+service that does real keyword-based image search without an API key, so fixed content gets
+specific hand-picked photos and dynamic content (arbitrary make/model text) gets a reliable but
+generic seeded placeholder instead of attempting a fake "real photo of this exact vehicle" search.
+
+**Consequence:** Every new category/part added to `landing/data/*.ts` or `parts/data/parts.ts`
+needs a manually verified Pexels photo ID (`curl -o /dev/null -w "%{http_code}"` the constructed
+URL before committing it) — don't reintroduce a keyword-search service for these. Real product/
+vehicle photography replaces all of this before launch regardless.

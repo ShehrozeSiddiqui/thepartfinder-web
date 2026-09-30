@@ -17,4 +17,6 @@ and `src/features/part-requests/`. Matches mockups 5–8, 10 and 11.
 - Cart, buy now, checkout, accept quote (Phase 3). My Garage/account, dealer portal, eBay and Amazon
   integrations (need auth + real APIs) — mockups 9, 12, 13, 15, 16.
 - Real data: `data/parts.ts` and `mockRequests.ts` are illustrative, not verified fitment. Images
-  are loremflickr placeholders. Loading/error states are required once backed by Supabase.
+  are pinned Pexels photo IDs (`imagePexelsId` per seed, verified to resolve) — see ADR-005 in
+  context/decisions.md; not real product photography. Loading/error states are required once
+  backed by Supabase.

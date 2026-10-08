@@ -4,9 +4,9 @@ export const site = {
   tagline: "Finding the parts others can't find.",
   /** Small line under the logo in the header/footer lockup. */
   logoTagline: "If the part exists, we'll find it. The path to it.",
-  /** Client-supplied logo artwork. Intrinsic size 2001×786 — always render with next/image `fill` or a matching aspect ratio. */
-  logoSrc: "/logo.png",
-  logoDimensions: { width: 2001, height: 786 },
+  /** Site-wide logo artwork saved from the client's ChatGPT image. */
+  logoSrc: "/the-partfinder-logo.png",
+  logoDimensions: { width: 1919, height: 820 },
   description:
     "Genuine, OEM, aftermarket, obsolete and hard-to-find vehicle parts — sourced globally, delivered with confidence.",
   descriptors: ["Genuine", "OEM", "Aftermarket", "Obsolete", "Hard-to-Find"],

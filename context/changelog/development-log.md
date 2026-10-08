@@ -43,25 +43,27 @@
 ## 2026-09-30
 
 ### Fixed
-- `simple-icons` was declared in `package.json` but never installed (`npm install` had not been
   re-run after it was added) — `find-my-part`'s brand-logo rendering would have crashed. Ran the
   install; also gave the homepage's `TrustedBrands` real brand marks via the same package instead
   of plain text wordmarks.
-- All `loremflickr.com` images site-wide were broken (service returning 401) — replaced with
   pinned, verified Pexels photo IDs for fixed content (categories, featured parts, parts catalog)
   and Picsum seeded placeholders for the two spots keyed to arbitrary make/model text (Find My
   Part vehicle preview, garage thumbnails). See ADR-005.
 
 ### Added
-- Made the homepage Hero's "Find My Part" search card fully interactive. All 4 tabs now work: the
   vehicle selects are wired to real `makes`/`yearsFor` data with proper Make→Model→Year cascading
   (each disabled until its parent is chosen) and submit a plain GET form to `/find-my-part`; Part #
   and Description submit into their real search pages; Upload a Photo links to
   `/search/description?tab=photo`. `FindMyPartWizard` and `DescriptionSearch` now accept initial
   state from the URL so the Hero's picks land the user at the right step/tab instead of being
   thrown away — see `context/features/landing.md` and `find-my-part.md`.
-- Replaced the Compass-icon-plus-text logo lockup with the client-supplied logo artwork
   (`public/logo.png`, 2001×786, name+tagline baked into the image) in Header, Footer, and Hero.
   Added `site.logoSrc`/`site.logoDimensions`. Favicon (`src/app/favicon.ico`) is untouched — it's
   still the Next.js default; the new artwork is a wide rectangular lockup, not a square mark, so
   it can't be cropped into a favicon without a separate square icon from the client.
+
+## 2026-10-08
+
+### Updated
+- Switched the shared Header, Footer, and Hero logo to the newly saved client image
+  (`public/the-partfinder-logo.png`, 1919×820).
